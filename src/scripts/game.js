@@ -107,7 +107,7 @@ function createTrack(i) {
 
 function getQuestion() {
   const questionContainer = document.getElementById("question");
-  const question = questions[Math.floor(Math.random() * questions.length)];
+  const question = questions[3];
   const title = document.createElement("p");
   title.textContent = question.question;
   questionContainer.appendChild(title);
@@ -129,7 +129,7 @@ function checkAnswer(answer, question) {
   } else {
     renderAnswer(answer.text, false);
   }
-  if (currPlayer < 3) {
+  if (currPlayer < players.length - 1) {
     currPlayer++;
   } else {
     currPlayer = 0;
@@ -181,18 +181,29 @@ function updateScore() {
 
   oldTile.innerHTML = "";
   board[currPlayer].position++;
+
+  if (board[currPlayer].position >= 10) {
+    renderVictoryScreen(board[currPlayer]);
+    return; // interrompe execução após a vitória
+  }
+
   const newTile = track.querySelector(
     `.tile[data-position="${board[currPlayer].position}"]`
   );
 
   const img = document.createElement("img");
-  img.src = "../assets/themis.jpeg"; // Altere para o caminho correto da sua imagem
+  img.src = "../assets/themis.jpeg";
   img.alt = "Peão do jogador";
   img.style.width = "24px";
   img.style.height = "24px";
   newTile.appendChild(img);
-  console.log(board);
 }
+
+function renderVictoryScreen(player) {
+  localStorage.setItem("winner", player.name);
+  window.location.href = "victory.html";
+}
+
 document.addEventListener("DOMContentLoaded", generateBoard);
 document.addEventListener("DOMContentLoaded", renderTurnNick);
 document.addEventListener("DOMContentLoaded", getQuestion);
