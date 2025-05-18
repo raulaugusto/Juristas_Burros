@@ -19,5 +19,5 @@ form.addEventListener("submit", function (event) {
   localStorage.setItem("numberOfPlayers", numberOfPlayers);
 
   // Redireciona para a próxima página do jogo
-  window.location.href = "views/nickSelection.html"; // substitua pelo nome real da próxima página
+  window.location.href = "src/views/nickSelection.html"; // substitua pelo nome real da próxima página
 });
