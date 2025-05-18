@@ -107,7 +107,7 @@ function createTrack(i) {
 
 function getQuestion() {
   const questionContainer = document.getElementById("question");
-  const question = questions[3];
+  const question = questions[Math.floor(Math.random() * questions.length)];
   const title = document.createElement("p");
   title.textContent = question.question;
   questionContainer.appendChild(title);
