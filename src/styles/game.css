@@ -1,0 +1,139 @@
+/* Reset e corpo centralizado */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Tabuleiro com trilhas lado a lado */
+.board {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Cada trilha individual */
+.track {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Nome do jogador */
+.player-name {
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Caminho das casas (de baixo para cima) */
+.path {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+}
+
+/* Cada casa */
+.tile {
+  width: 40px;
+  height: 40px;
+  background-color: #eee;
+  border: 1px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.tile img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Caixa de perguntas ao lado */
+#question {
+  width: 400px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#question h3 {
+  margin-bottom: 1rem;
+}
+
+#question button {
+  width: 400px;
+  margin-bottom: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+#question button:hover {
+  background-color: #0056b3;
+}
+
+#correct,
+#incorrect {
+  width: 100%;
+  max-width: 300px;
+  height: 40px;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #999;
+  border-radius: 8px;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  margin-bottom: 15px;
+}
+
+/* Estilo individual por tipo */
+#correct {
+  background-color: #4caf50; /* Verde mais vibrante */
+  border: 2px solid #2e7d32;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+#incorrect {
+  background-color: #f44336; /* Vermelho mais intenso */
+  border: 2px solid #c62828;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(244, 67, 54, 0.7);
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
