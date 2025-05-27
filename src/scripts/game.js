@@ -56,6 +56,10 @@ const questions = [
     correctAnswer: 3,
   },
 ];
+const questionsBackup = [];
+questions.forEach((question) => {
+  questionsBackup.push(question);
+});
 
 const board = [];
 const players = JSON.parse(localStorage.getItem("players"));
@@ -89,11 +93,13 @@ function createTrack(i) {
     const tile = document.createElement("div");
     tile.className = "tile";
     if (j === 0) {
+      const imagePath = getPlayerImagePath(players[i]);
+      console.log(imagePath);
       const img = document.createElement("img");
-      img.src = "../assets/themis.jpeg"; // Altere para o caminho correto da sua imagem
+      img.src = imagePath; // Altere para o caminho correto da sua imagem
       img.alt = "Peão do jogador";
-      img.style.width = "24px";
-      img.style.height = "24px";
+      img.style.width = "40px";
+      img.style.height = "40px";
       tile.appendChild(img);
     }
     tile.dataset.position = j; // útil para identificar depois
@@ -106,8 +112,9 @@ function createTrack(i) {
 }
 
 function getQuestion() {
+  const randInt = Math.floor(Math.random() * questions.length);
   const questionContainer = document.getElementById("question");
-  const question = questions[Math.floor(Math.random() * questions.length)];
+  const question = questions[randInt];
   const title = document.createElement("p");
   title.textContent = question.question;
   questionContainer.appendChild(title);
@@ -119,6 +126,12 @@ function getQuestion() {
     });
     questionContainer.appendChild(answerButton);
   });
+  questions.splice(randInt, 1);
+  if (questions.length === 0) {
+    questionsBackup.forEach((question) => {
+      questions.push(question);
+    });
+  }
 }
 
 function checkAnswer(answer, question) {
@@ -178,7 +191,7 @@ function updateScore() {
   const oldTile = track.querySelector(
     `.tile[data-position="${board[currPlayer].position}"]`
   );
-
+  const image = oldTile.innerHTML;
   oldTile.innerHTML = "";
   board[currPlayer].position++;
 
@@ -191,17 +204,33 @@ function updateScore() {
     `.tile[data-position="${board[currPlayer].position}"]`
   );
 
-  const img = document.createElement("img");
-  img.src = "../assets/themis.jpeg";
-  img.alt = "Peão do jogador";
-  img.style.width = "24px";
-  img.style.height = "24px";
-  newTile.appendChild(img);
+  newTile.innerHTML = image;
 }
 
 function renderVictoryScreen(player) {
-  localStorage.setItem("winner", player.name);
+  const boardCopy = board;
+  boardCopy.sort((a, b) => {
+    return b.position - a.position;
+  });
+  localStorage.setItem("winner", board[0].name);
+  localStorage.setItem("secondPlace", board[1].name);
+  localStorage.setItem("thirdPlace", board[2].name);
   window.location.href = "victory.html";
+}
+
+function getPlayerImagePath(playerName) {
+  switch (playerName) {
+    case "Xandão":
+      return "../assets/xandao.jpg";
+    case "Dino":
+      return "../assets/dino.jpg";
+    case "Lewandowski":
+      return "../assets/lewandowski.jpg";
+    case "Carmen":
+      return "../assets/carmen.webp";
+    default:
+      return "";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", generateBoard);

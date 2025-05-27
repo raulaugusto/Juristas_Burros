@@ -8,7 +8,7 @@
 /* Corpo centralizado e com fundo claro */
 body {
   font-family: "Segoe UI", sans-serif;
-  background-color: #f0f2f5;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
   display: flex;
   justify-content: center;
   align-items: center;

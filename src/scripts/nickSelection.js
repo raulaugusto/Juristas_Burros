@@ -10,24 +10,16 @@ function generateNickSelectionForm() {
     label.textContent = `Jogador ${i + 1}: `;
 
     const nickInput = document.createElement("select");
-    const xande = document.createElement("option");
-    xande.textContent = "Xandão";
-    xande.value = "Xande";
-    const dino = document.createElement("option");
-    dino.textContent = "Dino";
-    dino.value = "Dino";
-    const lewandowski = document.createElement("option");
-    lewandowski.textContent = "Lewandowski";
-    lewandowski.value = "Lewandowski";
-    const carmen = document.createElement("option");
-    carmen.textContent = "Carmen";
-    carmen.value = "Carmen";
-    nickInput.appendChild(xande);
-    nickInput.appendChild(dino);
-    nickInput.appendChild(lewandowski);
-    nickInput.appendChild(carmen);
+
+    const options = ["Xandão", "Dino", "Lewandowski", "Carmen"];
+    options.forEach((optionText) => {
+      const option = document.createElement("option");
+      option.textContent = optionText;
+      option.value = optionText;
+      nickInput.appendChild(option);
+    });
+
     nickInput.name = `player${i + 1}`;
-    nickInput.placeholder = "Digite o nome";
 
     form.appendChild(label);
     form.appendChild(nickInput);
@@ -48,12 +40,20 @@ form.addEventListener("submit", function (event) {
     .filter((element) => element.name.startsWith("player"))
     .map((element) => element.value.trim());
 
-  // Validação opcional
+  // Verificar se algum nick está vazio
   if (nicks.some((nick) => nick === "")) {
     alert("Todos os jogadores devem ter um nome!");
     return;
   }
 
+  // Verificar se há nomes duplicados
+  const nickSet = new Set(nicks);
+  if (nickSet.size !== nicks.length) {
+    alert("Cada jogador deve ter um nome diferente!");
+    return;
+  }
+
+  // Salvar no localStorage e iniciar o jogo
   localStorage.setItem("players", JSON.stringify(nicks));
   window.location.href = "game.html";
 });
